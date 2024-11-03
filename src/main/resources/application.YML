@@ -3,7 +3,7 @@ app:
   version: "1.0.0"
 
 server:
-  port: 8081  # Port where your Spring Boot application will run
+  port: 8081
 
 spring:
   application:
@@ -12,5 +12,9 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: http://localhost:8080/realms/vendeur  # Keycloak issuer URI
-          jwk-set-uri: http://localhost:8080/realms/vendeur/protocol/openid-connect/certs  # Keycloak JWK set URI
+          issuer-uri: http://localhost:8080/realms/vendeur
+          jwk-set-uri: http://localhost:8080/realms/vendeur/protocol/openid-connect/certs
+
+openId :
+  client_id: vendeur-dev-api
+
