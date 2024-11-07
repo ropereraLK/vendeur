@@ -1,18 +1,20 @@
 package io.github.ropereralk.vendeur.login;
 
+import io.github.ropereralk.vendeur.configurations.WebClientConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.BodyInserters;
+import reactor.core.publisher.Mono;
 
 @Service
-public class LoginService {
+public class LoginAsyncService {
 
     @Autowired
-    private RestTemplate restTemplate;
+    private WebClientConfiguration webClientConfiguration;
 
     @Value("${keycloak.tokenUrl}")
     private String t1Url;
@@ -20,7 +22,7 @@ public class LoginService {
     @Value("${keycloak.clientId}")
     private String clientId;
 
-    public String getLoginToken(String u1, String p1) {
+    public Mono<String> getLoginToken(String u1, String p1) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
@@ -30,16 +32,15 @@ public class LoginService {
         formData.add("username", u1);
         formData.add("password", p1);
         formData.add("client_id", clientId);
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(formData, headers);
 
-        ResponseEntity<String> response = restTemplate.exchange(t1Url, HttpMethod.POST, requestEntity, String.class);
-
-        if (response.getStatusCode().is2xxSuccessful()) {
-            return response.getBody();
-        } else {
-            throw new RuntimeException("Failed to retrieve token: " + response.getStatusCode());
-        }
-
+        return webClientConfiguration.webClientBuilder().baseUrl(t1Url)
+                .build()
+                .post()
+                .header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
+                .body(BodyInserters.fromFormData(formData))
+                .retrieve()
+                .bodyToMono(String.class);
 
     }
+
 }

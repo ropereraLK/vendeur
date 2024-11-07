@@ -15,7 +15,7 @@ public class UserController {
     @Autowired
     UserService service;
 
-    @PostMapping("/user")
+    @PostMapping("/users")
     public boolean createUser(UserDTO user){
 
         HttpResponse response = service.createUser(user);
