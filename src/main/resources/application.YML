@@ -8,6 +8,9 @@ server:
 spring:
   application:
     name: vendeur
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/mydatabase
   security:
     oauth2:
       resourceserver:

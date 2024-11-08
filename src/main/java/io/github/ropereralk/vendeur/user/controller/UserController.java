@@ -1,6 +1,6 @@
 package io.github.ropereralk.vendeur.user.controller;
 
-import io.github.ropereralk.vendeur.dto.UserDTO;
+import io.github.ropereralk.vendeur.dto.api.UserApiDTO;
 import io.github.ropereralk.vendeur.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +16,7 @@ public class UserController {
     UserService service;
 
     @PostMapping("/users")
-    public boolean createUser(UserDTO user){
+    public boolean createUser(UserApiDTO user){
 
         HttpResponse response = service.createUser(user);
         return true;

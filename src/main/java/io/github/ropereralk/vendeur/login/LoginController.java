@@ -1,6 +1,6 @@
 package io.github.ropereralk.vendeur.login;
 
-import io.github.ropereralk.vendeur.dto.LoginRequest;
+import io.github.ropereralk.vendeur.dto.api.LoginRequestApiDTO;
 import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +19,10 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> authUser(@Valid @RequestBody LoginRequest loginRequest){
+    public ResponseEntity<String> authUser(@Valid @RequestBody LoginRequestApiDTO loginRequestApiDTO){
 
         return ResponseEntity.ok(loginService.getLoginToken(
-                StringEscapeUtils.escapeHtml4(loginRequest.getU1()),
-                StringEscapeUtils.escapeHtml4(loginRequest.getP1())));
+                StringEscapeUtils.escapeHtml4(loginRequestApiDTO.getU1()),
+                StringEscapeUtils.escapeHtml4(loginRequestApiDTO.getP1())));
     }
 }
