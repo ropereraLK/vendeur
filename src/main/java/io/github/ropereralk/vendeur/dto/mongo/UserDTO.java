@@ -17,6 +17,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.UUID;
 
+@Valid
 @Document(collection = "user")
 public class UserDTO {
 
@@ -48,11 +49,12 @@ public class UserDTO {
     private ArrayList<String> roles;
 
     @CreatedDate
-    private Instant  createdDate;
+    private Instant createdDate;
+
     @LastModifiedDate
     private Instant lastModifiedDate;
-  //@Version
-     private Long version;
+
+    private Long version;
 
     public UserDTO() {
     }
@@ -142,7 +144,7 @@ public class UserDTO {
         return email;
     }
 
-    public void setEmail(@Valid @NotBlank(message = "Email is required") @Email(message = "Email is not valid") String email) {
+    public void setEmail(@NotBlank(message = "Email is required") @Email(message = "Email is not valid") String email) {
         this.email = email;
     }
 
