@@ -19,7 +19,7 @@ public class SecurityConfig {
         httpSecurity
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/v1/health", "/v1/auth/*").permitAll()
+                        .requestMatchers("/api/v1/health", "/v1/auth/*","/v1/signup").permitAll()
                         .requestMatchers("/api/v1/admin1/**").hasRole("vendure-dev-client")
                         .anyRequest().authenticated()
                 )

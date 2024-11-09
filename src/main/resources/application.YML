@@ -10,7 +10,7 @@ spring:
     name: vendeur
   data:
     mongodb:
-      uri: mongodb://localhost:27017/mydatabase
+      uri: mongodb://localhost:27017/vendeur_dev
   security:
     oauth2:
       resourceserver:

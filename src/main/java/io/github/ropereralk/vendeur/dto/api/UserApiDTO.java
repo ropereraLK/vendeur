@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class UserApiDTO {
 
-    private String userId;
+
     private String firstName;
     private String lastName;
     @JsonProperty("username")
@@ -22,8 +22,8 @@ public class UserApiDTO {
     public UserApiDTO() {
     }
 
-    public UserApiDTO(String userId, String firstName, String lastName, String u1, String p1, String employeeId, String identityNumber, String email, boolean isActive, ArrayList<String> roles) {
-        this.userId = userId;
+    public UserApiDTO(  String firstName, String lastName, String u1, String p1, String employeeId, String identityNumber, String email, boolean isActive, ArrayList<String> roles) {
+
         this.firstName = firstName;
         this.lastName = lastName;
         this.u1 = u1;
@@ -35,13 +35,7 @@ public class UserApiDTO {
         this.roles = roles;
     }
 
-    public String getUserId() {
-        return userId;
-    }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getFirstName() {
         return firstName;

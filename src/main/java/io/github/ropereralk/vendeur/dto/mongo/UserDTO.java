@@ -1,14 +1,17 @@
 package io.github.ropereralk.vendeur.dto.mongo;
 
 import io.github.ropereralk.vendeur.util.validator.enums.IdentityType;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
+
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -34,9 +37,10 @@ public class UserDTO {
     private IdentityType identityType;
     private String identityNumber;
 
-    @Indexed(unique = true)
+
     @NotBlank(message = "Email is required")
     @Email(message = "Email is not valid")
+    @Indexed(unique = true)
     private String email;
 
     private boolean isActive = false;
@@ -47,8 +51,8 @@ public class UserDTO {
     private Instant  createdDate;
     @LastModifiedDate
     private Instant lastModifiedDate;
-    @Version
-    private Long version;
+  //@Version
+     private Long version;
 
     public UserDTO() {
     }
@@ -138,7 +142,7 @@ public class UserDTO {
         return email;
     }
 
-    public void setEmail(@NotBlank(message = "Email is required") @Email(message = "Email is not valid") String email) {
+    public void setEmail(@Valid @NotBlank(message = "Email is required") @Email(message = "Email is not valid") String email) {
         this.email = email;
     }
 

@@ -5,19 +5,20 @@ import io.github.ropereralk.vendeur.dto.mongo.UserDTO;
 import io.github.ropereralk.vendeur.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import java.net.http.HttpResponse;
 import java.util.UUID;
 
+@Validated
 @Service
 public class UserService {
 
-    @Autowired
-    UserDTO user;
+    UserDTO user = new UserDTO();
 
+    @Autowired
     UserRepository userRepository;
 
-    public HttpResponse createUser(final UserApiDTO userApi) {
+    public boolean createUser(final UserApiDTO userApi) throws Exception {
 
         /**
          * 01: Create User in Keycloak
@@ -29,19 +30,20 @@ public class UserService {
 
         //Transform
         transform(userApi);
-
         userRepository.save(user);
-        return null;
+
+        return true;
     }
 
-    private UserDTO transform(UserApiDTO userApiDTO){
+    private void transform(UserApiDTO userApiDTO) {
 
         user.setUserId(UUID.randomUUID());
         user.setFirstName(userApiDTO.getFirstName());
         user.setLastName(userApiDTO.getLastName());
         user.setEmail(userApiDTO.getEmail());
+        user.setU1(userApiDTO.getU1());
         user.setActive(false);
-        return null;
+
     }
 
 
