@@ -23,9 +23,14 @@ openId :
 
 
 keycloak:
+  server: http://localhost:8080
+  realms: vendeur
   tokenUrl: http://localhost:8080/realms/vendeur/protocol/openid-connect/token
   clientId: vendeur-dev-api
   cdentls:
     aU1: vendeuradmin
     aP1: internal
+  api:
+    admin:
+      createUser: ${keycloak.server}/admin/realms/${keycloak.realms}/users
 

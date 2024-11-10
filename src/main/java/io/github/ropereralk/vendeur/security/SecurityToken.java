@@ -16,7 +16,7 @@ public class SecurityToken {
     @Value("${keycloak.cdentls.aU1}")
     private String aU1;
 
-    @Value("${keycloak.cdentls.aP1aP1}")
+    @Value("${keycloak.cdentls.aP1}")
     private String aP1;
 
     public String getAdminKeycloakToken() throws Exception{

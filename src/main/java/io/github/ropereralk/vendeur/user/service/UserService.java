@@ -1,6 +1,8 @@
 package io.github.ropereralk.vendeur.user.service;
 
 import io.github.ropereralk.vendeur.dto.api.UserApiDTO;
+import io.github.ropereralk.vendeur.dto.keycloak.CredentialsKeycloakDTO;
+import io.github.ropereralk.vendeur.dto.keycloak.UserKeycloakDTO;
 import io.github.ropereralk.vendeur.dto.mongo.UserDTO;
 import io.github.ropereralk.vendeur.user.repository.UserRepository;
 
@@ -8,6 +10,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -22,6 +26,12 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    KeycloakUserCreationSyncImpl keycloakUserCreation;
+
+
+
+
     public boolean createUser(final UserApiDTO userApi) throws Exception {
 
         /**
@@ -30,7 +40,7 @@ public class UserService {
          * OutPutMessage Received(Async)     T/F   F
          * Vendur DB                         T/F   T/F
          */
-
+        keycloakUserCreation.createUser(transformKeycloak(userApi));
 
 
         /**
@@ -61,6 +71,30 @@ public class UserService {
             throw new RuntimeException("Validation Failed");
         }
 
+    }
+
+    public UserKeycloakDTO transformKeycloak(final UserApiDTO userApi){
+        UserKeycloakDTO userKeycloakDTO = new UserKeycloakDTO();
+
+        CredentialsKeycloakDTO credentialsKeycloakDTO = new CredentialsKeycloakDTO();
+
+        ArrayList<CredentialsKeycloakDTO> credentialsKeycloakDTOS = new ArrayList<>();
+        credentialsKeycloakDTOS.add(credentialsKeycloakDTO);
+
+        userKeycloakDTO.setUsername(userApi.getU1());
+        userKeycloakDTO.setFirstName(userApi.getFirstName());
+        userKeycloakDTO.setLastName(userApi.getLastName());
+        userKeycloakDTO.setEmail(userApi.getEmail());
+        userKeycloakDTO.setEnabled(false);
+
+        credentialsKeycloakDTO.setTemporary(false);
+        credentialsKeycloakDTO.setType("password");
+        credentialsKeycloakDTO.setValue(userApi.getP1());
+
+        userKeycloakDTO.setCredentials(credentialsKeycloakDTOS);
+
+
+        return userKeycloakDTO;
     }
 
 
