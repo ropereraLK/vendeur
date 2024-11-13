@@ -15,6 +15,6 @@ public class WebClientConfiguration {
 
     @Bean
     public WebClient keycloakWebClientBuilder(){
-        return WebClient.builder().build();
+        return WebClient.builder().baseUrl("http://localhost:8083").build();
     }
 }

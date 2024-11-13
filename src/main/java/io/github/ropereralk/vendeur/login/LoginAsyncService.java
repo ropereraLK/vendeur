@@ -33,14 +33,16 @@ public class LoginAsyncService {
         formData.add("password", p1);
         formData.add("client_id", clientId);
 
-        return webClientConfiguration.webClientBuilder().baseUrl(t1Url)
-                .build()
-                .post()
-                .header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
-                .body(BodyInserters.fromFormData(formData))
-                .retrieve()
-                .bodyToMono(String.class);
+//
+//        return webClientConfiguration.webClientBuilder().baseUrl(t1Url)
+//                .build()
+//                .post()
+//                .header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded")
+//                .body(BodyInserters.fromFormData(formData))
+//                .retrieve()
+//                .bodyToMono(String.class);
 
+        return null;
     }
 
 }
