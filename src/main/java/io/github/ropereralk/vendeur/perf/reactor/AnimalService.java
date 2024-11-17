@@ -23,7 +23,7 @@ public class AnimalService {
                 .retrieve()
 
 
-                
+
                 .bodyToMono(String.class)
                 .doOnSuccess(i -> System.out.println("Request Completed, CorrelationId: " + correlationId + " Timestamp: " + Instant.now()))
                 .doOnError(Throwable::printStackTrace);
